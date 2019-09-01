@@ -1,0 +1,46 @@
+{
+  "auther": "Chung-Min Cheng",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "lint": "eslint --cache --ext .js ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint --fix",
+      "pre-push": "yarn lint",
+      "post-merge": "yarn"
+    }
+  },
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "express": "^4.17.1",
+    "fetch-ponyfill": "^6.1.0",
+    "mongodb": "^3.3.2",
+    "next": "^9.0.0",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-auto-form": "^2.0.0",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.3",
+    "@types/node-sass": "^4.11.0",
+    "@types/react": "^16.9.2",
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.0.1",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
+    "husky": "^3.0.0",
+    "typescript": "^3.6.2"
+  }
+}

@@ -1,0 +1,111 @@
+html,
+body,
+div,
+ul,
+li,
+h1,
+h2,
+h3,
+label,
+input {
+  display: flex;
+}
+
+thead {
+  font-weight: bold;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+}
+
+html,
+body {
+  flex: 1 0 100%;
+  height: 100%;
+  margin: 0;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  justify-content: center;
+}
+
+.loading {
+  justify-content: center;
+}
+
+.widget-desc {
+  margin: .5em 0;
+  text-transform: capitalize;
+}
+
+.widget-temp {
+  font-size: 3em;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: .5em 0;
+}
+
+.widget-country {
+  justify-self: flex-end;
+}
+
+.panel-container {
+  justify-content: center;
+  flex-direction: column;
+  margin: 1em;
+}
+
+.panel-label {
+  align-items: center;
+  align-self: center;
+  margin: .1em 0;
+  min-width: 150px;
+  justify-content: space-between;
+}
+
+.main-container {
+  flex: 1;
+  justify-content: center;
+}
+
+.widget-container {
+  flex: 1;
+  flex-direction: column;
+}
+
+.widget-inner {
+  flex: 1;
+  justify-content: space-between;
+}
+
+.widget {
+  background-color: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  flex: 1;
+  flex-direction: column;
+  padding: 1em;
+  margin: 1em;
+}
+
+.employee-form {
+  flex: 1 0;
+  flex-direction: column;
+  max-width: 50%;
+}
+
+.employee-form-label {
+  justify-content: space-between;
+  flex-direction: column;
+  margin: .5em 0;
+}
+
+.add-employee-cta-container {
+  margin-top: .5em;
+}
