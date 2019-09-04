@@ -9,7 +9,7 @@ import EmployeeInfo from '../components/index';
 interface Employee {
   surname: string;
   forename: string;
-  id: string;
+  _id: string;
   startDate: string;
   admin: boolean,
 }

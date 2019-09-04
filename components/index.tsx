@@ -7,7 +7,7 @@ import { getWeekday, getDateTimeStr } from '../utils/datetime';
 interface Employee {
   surname: string;
   forename: string;
-  id: string;
+  _id: string;
   startDate: string;
   admin: boolean,
 }

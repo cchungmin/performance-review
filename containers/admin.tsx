@@ -20,7 +20,7 @@ import EmployeeManagement from '../components/EmployeeManagement';
 interface Employee {
   surname: string;
   forename: string;
-  id: string;
+  _id: string;
   startDate: string;
   admin: boolean,
   position: string,
@@ -109,7 +109,7 @@ class Index extends React.Component<Props> {
     const { addFeedback, employeeData } = this.props;
     const { targetEmployee, selectedEmployee } = this.state;
     addFeedback({
-      assigner: employeeData.id,
+      assigner: employeeData._id,
       assignee: selectedEmployee,
       target: targetEmployee,
     });
@@ -120,7 +120,7 @@ class Index extends React.Component<Props> {
     const { value } = ev.target;
     const { allEmployeeData } = this.props;
     const { employeePanel, updating } = this.state;
-    const selectedTarget = allEmployeeData.find(el => el.id === value);
+    const selectedTarget = allEmployeeData.find(el => el._id === value);
     this.setState({
       selectedTarget: employeePanel ? null : selectedTarget,
       updating: !updating,
@@ -165,13 +165,11 @@ class Index extends React.Component<Props> {
   }
 
   render() {
-    const { allEmployeeData, employeeData, feedbackData } = this.props;
+    const { allEmployeeData, employeeData } = this.props;
     const {
-      selectedFilter,
       selectedTarget,
       fetching,
       employeePanel,
-      newEmployee,
       adding,
       updating,
     } = this.state;

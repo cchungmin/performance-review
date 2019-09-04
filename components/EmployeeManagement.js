@@ -51,12 +51,12 @@ export default ({
                     </button>
                   </td>
                   <td>
-                    <button value={el.id} onClick={updateEmployee} disabled={adding}>
+                    <button value={el._id} onClick={updateEmployee} disabled={adding}>
                       {updating ? 'Cancel update' : 'Update'}
                     </button>
                   </td>
                   <td>
-                    <button value={el.id} onClick={deleteEmployee}>
+                    <button value={el._id} onClick={deleteEmployee}>
                       Delete
                     </button>
                   </td>
