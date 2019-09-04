@@ -24,9 +24,10 @@ const reducer = (state = INITIAL_STATE, action) => {
         allEmployeeData: [...state.allEmployeeData, action.data],
       };
     case types.DELETE_EMPLOYEE_DATA_SUCCESS:
+      console.log('action.data', action.data)
       return {
         ...state,
-        allEmployeeData: action.data.filter(el => !el.deleted),
+        allEmployeeData: action.data,
       };
     case types.UPDATE_EMPLOYEE_DATA_SUCCESS:
       return {
