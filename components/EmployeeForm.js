@@ -2,7 +2,7 @@ import * as React from 'react';
 import AutoForm from 'react-auto-form';
 import css from '../styles.scss';
 
-export default ({
+const EmployeeForm = ({
   onFormChange,
   onFormSubmit,
   selectedTarget,
@@ -35,4 +35,6 @@ export default ({
       </div>
     </div>
   </AutoForm>
-)
+);
+
+export default EmployeeForm;

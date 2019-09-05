@@ -2,7 +2,7 @@
 import * as React from 'react';
 import css from '../styles.scss';
 
-export default ({
+const EmployeeManagement = ({
   allEmployeeData,
   assignFeedback,
   onSelectReviewerChange,
@@ -15,7 +15,7 @@ export default ({
   <>
     <h1>Employee Management</h1>
     <div className={css['widget-container']}>
-      <div className className={css['widget']}>
+      <div className={css['widget']}>
         <table>
           <thead>
             <tr>
@@ -31,7 +31,7 @@ export default ({
           <tbody>
             {
               allEmployeeData.map(el => (
-                <tr className={css['widget-inner']}>
+                <tr className={css['widget-inner']} key={el._id}>
                   <td>{el.forename} {el.surname}</td>
                   <td>{el.position}</td>
                   <td>{el.department}</td>
@@ -42,7 +42,7 @@ export default ({
                         allEmployeeData.filter(filterEl =>
                           filterEl.id !== el.id
                         ).map(innerEl => (
-                          <option value={innerEl.id}>{innerEl.forename} {innerEl.surname}</option>
+                          <option value={innerEl._id} key={`inner-${innerEl._id}`}>{innerEl.forename} {innerEl.surname}</option>
                         ))
                       }
                     </select>
@@ -71,4 +71,6 @@ export default ({
       </div>
     </div>
   </>
-)
+);
+
+export default EmployeeManagement;
