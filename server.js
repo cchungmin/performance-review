@@ -27,7 +27,7 @@ app.prepare().then(() => {
 
     server.post('/v1/api/add-employee', async (req, res) => {
       const item = req.body;
-      await db.collection('employees').insert(item);
+      await db.collection('employees').insertOne(item);
       await db.collection('employees').find().toArray(function(err, result) {
         if (err) throw err;
         return res.json(result);

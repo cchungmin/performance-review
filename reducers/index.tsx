@@ -21,7 +21,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.ADD_EMPLOYEE_DATA_SUCCESS:
       return {
         ...state,
-        allEmployeeData: [...state.allEmployeeData, action.data],
+        allEmployeeData: action.data,
       };
     case types.DELETE_EMPLOYEE_DATA_SUCCESS:
       console.log('action.data', action.data)

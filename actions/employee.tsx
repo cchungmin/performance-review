@@ -29,7 +29,6 @@ export const fetchEmployeeData = postData => async (dispatch) => {
 export const fetchAllEmployeeData = () => async (dispatch) => {
   dispatch({ type: types.FETCH_ALL_EMPLOYEE_DATA });
   const data = await get(apiPaths.FETCH_ALL_EMPLOYEES);
-  console.log('data', data);
   const res = {
     data,
     status: '200',
@@ -50,7 +49,6 @@ export const addEmployee = postData => async (dispatch: Function) => {
 export const deleteEmployee = employeeId => async (dispatch: Function) => {
   dispatch({ type: types.DELETE_EMPLOYEE_DATA });
   const res = await post(apiPaths.DELETE_EMPLOYEE, { _id: employeeId });
-  console.log('res1', res);
   dispatch({ data: res, type: types.DELETE_EMPLOYEE_DATA_SUCCESS });
 };
 
