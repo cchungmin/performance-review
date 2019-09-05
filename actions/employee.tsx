@@ -4,22 +4,14 @@ import apiPaths from './api';
 
 export const fetchEmployeeData = postData => async (dispatch) => {
   dispatch({ type: types.FETCH_EMPLOYEE_DATA });
+  const data = await get(apiPaths.FETCH_ALL_EMPLOYEES);
   const res = {
-    data: {
-      forename: 'Michael',
-      surname: 'Jordan',
-      startDate: '2016/04/01',
-      admin: true,
-      _id: '0300',
-      position: 'Engineering Manager',
-      department: 'Tech',
-      updating: false,
-      deleted: false,
-    },
+    data,
     status: '200',
   };
+  const picked = res.data[0];
   if (res.status === '200') {
-    dispatch({ data: res.data, type: types.FETCH_EMPLOYEE_DATA_SUCCESS });
+    dispatch({ data: { ...picked, admin: true }, type: types.FETCH_EMPLOYEE_DATA_SUCCESS });
   } else {
     dispatch({ type: types.FETCH_EMPLOYEE_DATA_FAILED });
   }

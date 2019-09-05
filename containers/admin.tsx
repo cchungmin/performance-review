@@ -173,7 +173,7 @@ class Index extends React.Component<Props> {
   onReviewFormChange = (ev: MouseEvent, name: string, data: string) => {
     if (!(ev.target instanceof HTMLInputElement)) return;
     const { selectedFeedback } = this.state;
-    this.setState({ newFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback.id }});
+    this.setState({ newFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback._id }});
   }
 
   onReviewFormSubmit = (ev: MouseEvent) => {
@@ -198,7 +198,7 @@ class Index extends React.Component<Props> {
     if (!(ev.target instanceof HTMLInputElement)) return;
     const { newEmployee, updating, selectedTarget } = this.state;
     const target = updating ? selectedTarget : newEmployee;
-    this.setState({ newEmployee: { ...target, [name]: data, ...updating ? { id: selectedTarget.id } : null }});
+    this.setState({ newEmployee: { ...target, [name]: data, ...updating ? { id: selectedTarget._id } : null }});
   }
 
   onFormSubmit = (ev: MouseEvent) => {
@@ -214,10 +214,17 @@ class Index extends React.Component<Props> {
     });
   }
 
+  getEmployeeName = (targetId: string) => {
+    const { allEmployeeData } = this.props;
+    const target = allEmployeeData.find(el => el._id === targetId);
+    if (!target) return null;
+    return `${target.forename} ${target.surname}`;
+  }
+
   async fetch() {
     const { fetchAllEmployeeData, fetchEmployeeData, fetchFeedbackData } = this.props;
     this.setState({ fetching: true });
-    await fetchEmployeeData('0300');
+    await fetchEmployeeData();
     await fetchAllEmployeeData();
     await fetchFeedbackData();
     this.setState({ fetching: false });
@@ -275,6 +282,7 @@ class Index extends React.Component<Props> {
                 feedbackData={feedbackData}
                 updateFeedback={this.updateFeedback}
                 updatingFeedback={updatingFeedback}
+                getEmployeeName={this.getEmployeeName}
               />
               {
                 feedbackPanel && (

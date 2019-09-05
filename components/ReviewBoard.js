@@ -8,15 +8,13 @@ const ReviewManagement = ({
   getEmployeeName,
 }) => (
   <>
-    <h1>Review Management</h1>
+    <h1>Incoming Reviews</h1>
     <div className={css['widget-container']}>
       <div className={css['widget']}>
         <table>
           <thead>
             <tr>
               <td>STATUS</td>
-              <td>ASSIGNEE</td>
-              <td>ASSIGNER</td>
               <td>REVIEWED TARGET</td>
               <td>RATING</td>
               <td>COMMENT</td>
@@ -28,16 +26,18 @@ const ReviewManagement = ({
                 feedbackData.map(el => (
                   <tr className={css['widget-inner']} key={el._id}>
                     <td>{el.status}</td>
-                    <td>{getEmployeeName(el.assignee)}</td>
-                    <td>{getEmployeeName(el.assigner)}</td>
                     <td>{getEmployeeName(el.target)}</td>
                     <td>{el.rating}</td>
                     <td>{el.comment}</td>
-                    <td>
-                      <button value={el._id} onClick={updateFeedback}>
-                        {updatingFeedback ? 'Cancel update' : 'Update'}
-                      </button>
-                    </td>
+                    {
+                      el.status === 'NEW' ? (
+                        <td>
+                          <button value={el._id} onClick={updateFeedback}>
+                            {updatingFeedback ? 'Cancel' : 'Start'}
+                          </button>
+                        </td>
+                      ) : (<td></td>)
+                    }
                   </tr>
                 ))
               }

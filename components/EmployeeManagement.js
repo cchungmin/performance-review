@@ -19,11 +19,11 @@ const EmployeeManagement = ({
         <table>
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Position</td>
-              <td>Dept</td>
-              <td>Start From</td>
-              <td>Request feedback</td>
+              <td>REVIEWED TARGET</td>
+              <td>POSITION</td>
+              <td>DEPT.</td>
+              <td>START DATE</td>
+              <td>REQUEST FEEDBACK FROM</td>
               <td></td>
               <td></td>
             </tr>
