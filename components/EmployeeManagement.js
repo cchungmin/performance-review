@@ -47,7 +47,7 @@ const EmployeeManagement = ({
                         ))
                       }
                     </select>
-                    <button onClick={assignFeedback}>
+                    <button value={el._id} onClick={assignFeedback}>
                       Assign
                     </button>
                   </td>

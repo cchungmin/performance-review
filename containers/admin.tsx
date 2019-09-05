@@ -11,11 +11,14 @@ import {
 } from '../actions/employee';
 import {
   addFeedback as addFeedbackAction,
+  updateFeedback as updateFeedbackAction,
   fetchFeedbackData as fetchFeedbackDataAction,
 } from '../actions/feedback';
 import EmployeeInfo from '../components/index';
 import EmployeeForm from '../components/EmployeeForm';
+import ReviewForm from '../components/ReviewForm';
 import EmployeeManagement from '../components/EmployeeManagement';
+import ReviewManagement from '../components/ReviewManagement';
 
 interface Employee {
   surname: string;
@@ -25,18 +28,27 @@ interface Employee {
   admin: boolean,
   position: string,
   department: string,
-  updating: false,
-  deleted: false,
+}
+
+interface Feedback {
+  _id: string;
+  status: string,
+  assignee: string,
+  assigner: string,
+  target: string,
+  rating: string,
+  comment: string,
 }
 
 interface Props {
   allEmployeeData: Array<Employee>;
   employeeData: Employee,
-  feedbackData: Array<Object>,
+  feedbackData: Array<Feedback>,
   fetchEmployeeData: Function,
   fetchAllEmployeeData: Function,
   fetchFeedbackData: Function,
   addFeedback: Function,
+  updateFeedback: Function,
   addEmployee: Function,
   deleteEmployee: Function,
   updateEmployee: Function,
@@ -49,6 +61,7 @@ class Index extends React.Component<Props> {
     fetchAllEmployeeData: () => {},
     fetchFeedbackData: () => {},
     addFeedback: () => {},
+    updateFeedback: () => {},
     addEmployee: () => {},
     deleteEmployee: () => {},
     updateEmployee: () => {},
@@ -57,13 +70,16 @@ class Index extends React.Component<Props> {
   state = {
     selectedFilter: '',
     selectedTarget: null,
+    selectedFeedback: null,
     fetching: true,
     selectedEmployee: '',
-    targetEmployee: '',
     employeePanel: false,
+    feedbackPanel: false,
     newEmployee: {},
+    newFeedback: {},
     adding: false,
     updating: false,
+    updatingFeedback: false,
   }
 
   componentDidMount() {
@@ -80,15 +96,17 @@ class Index extends React.Component<Props> {
     this.setState({ selectedEmployee: ev.target.value });
   }
 
-  onSelectTargetChange = (ev: React.ChangeEvent<HTMLSelectElement>) => {
-    if (!(ev.target instanceof HTMLSelectElement)) return;
-    this.setState({ targetEmployee: ev.target.value });
-  }
-
   reset = () => {
     this.setState({
       selectedTarget: null,
       newEmployee: {},
+    });
+  }
+
+  resetFeedback = () => {
+    this.setState({
+      selectedFeedback: null,
+      newFeedback: {},
     });
   }
 
@@ -105,14 +123,38 @@ class Index extends React.Component<Props> {
     this.setState({ employeePanel: !employeePanel });
   }
 
-  assignFeedback = () => {
+  toggleFeedbackPanel = () => {
+    const { feedbackPanel } = this.state;
+    this.setState({ feedbackPanel: !feedbackPanel });
+  }
+
+  assignFeedback = (ev: MouseEvent) => {
+    const { selectedEmployee } = this.state;
+    if (
+      !(ev.target instanceof HTMLButtonElement) ||
+      selectedEmployee === ''
+    ) return;
+    const { value } = ev.target;
     const { addFeedback, employeeData } = this.props;
-    const { targetEmployee, selectedEmployee } = this.state;
     addFeedback({
       assigner: employeeData._id,
       assignee: selectedEmployee,
-      target: targetEmployee,
+      target: value,
     });
+    this.setState({ selectedEmployee: '' });
+  }
+
+  updateFeedback = (ev: MouseEvent) => {
+    if (!(ev.target instanceof HTMLButtonElement)) return;
+    const { value } = ev.target;
+    const { feedbackData } = this.props;
+    const { feedbackPanel, updatingFeedback } = this.state;
+    const selectedFeedback = feedbackData.find(el => el._id === value);
+    this.setState({
+      selectedFeedback: feedbackPanel ? null : selectedFeedback,
+      updatingFeedback: !updatingFeedback,
+    });
+    this.toggleFeedbackPanel();
   }
 
   updateEmployee = (ev: MouseEvent) => {
@@ -126,6 +168,23 @@ class Index extends React.Component<Props> {
       updating: !updating,
     });
     this.toggleEmployeePanel();
+  }
+
+  onReviewFormChange = (ev: MouseEvent, name: string, data: string) => {
+    if (!(ev.target instanceof HTMLInputElement)) return;
+    const { selectedFeedback } = this.state;
+    this.setState({ newFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback.id }});
+  }
+
+  onReviewFormSubmit = (ev: MouseEvent) => {
+    const { updateFeedback } = this.props;
+    const { newFeedback, updatingFeedback } = this.state;
+    if (updatingFeedback) updateFeedback(newFeedback);
+    this.toggleFeedbackPanel();
+    this.resetFeedback();
+    this.setState({
+      updatingFeedback: false,
+    });
   }
 
   deleteEmployee = (ev: MouseEvent) => {
@@ -165,13 +224,20 @@ class Index extends React.Component<Props> {
   }
 
   render() {
-    const { allEmployeeData, employeeData } = this.props;
+    const {
+      employeeData,
+      allEmployeeData,
+      feedbackData,
+    } = this.props;
     const {
       selectedTarget,
+      selectedFeedback,
       fetching,
       employeePanel,
+      feedbackPanel,
       adding,
       updating,
+      updatingFeedback,
     } = this.state;
     return (
       <main className={css['main-container']}>
@@ -205,6 +271,20 @@ class Index extends React.Component<Props> {
                   />
                 )
               }
+              <ReviewManagement
+                feedbackData={feedbackData}
+                updateFeedback={this.updateFeedback}
+                updatingFeedback={updatingFeedback}
+              />
+              {
+                feedbackPanel && (
+                  <ReviewForm
+                    onReviewFormChange={this.onReviewFormChange}
+                    onReviewFormSubmit={this.onReviewFormSubmit}
+                    selectedFeedback={selectedFeedback}
+                  />
+                )
+              }
             </React.Fragment>
           )
         }
@@ -226,6 +306,7 @@ export default connect(({
   fetchAllEmployeeData: fetchAllEmployeeDataAction,
   fetchFeedbackData: fetchFeedbackDataAction,
   addFeedback: addFeedbackAction,
+  updateFeedback: updateFeedbackAction,
   addEmployee: addEmployeeAction,
   deleteEmployee: deleteEmployeeAction,
   updateEmployee: updateEmployeeAction,
