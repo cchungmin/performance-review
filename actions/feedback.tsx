@@ -1,30 +1,12 @@
 import types from './types';
-import { post } from '../utils/request';
+import { get, post } from '../utils/request';
+import apiPaths from './api';
 
-const API_PATH = '/v1/private/fetch-feedback-data';
-
-export const fetchFeedbackData = postData => async (dispatch) => {
+export const fetchFeedbackData = () => async (dispatch: Function) => {
   dispatch({ type: types.FETCH_FEEDBACK_DATA });
-  // const data = await post(API_PATH, postData);
+  const data = await get(apiPaths.FETCH_FEEDBACKS);
   const res = {
-    data: [
-      {
-        feedbackStatus: 'NEW',
-        assigner: '0300',
-        assignee: '0301',
-        target: '0302',
-        rating: 0,
-        comment: '',
-      },
-      {
-        feedbackStatus: 'COMPLETED',
-        assigner: '0300',
-        assignee: '0302',
-        target: '0301',
-        rating: 5,
-        comment: 'Yey',
-      },
-    ],
+    data,
     status: '200',
   };
   if (res.status === '200') {
@@ -34,21 +16,16 @@ export const fetchFeedbackData = postData => async (dispatch) => {
   }
 };
 
-export const addFeedback = postData => async (dispatch, getState) => {
+export const addFeedback = postData => async (dispatch: Function) => {
   dispatch({ type: types.ADD_FEEDBACK });
-  // const data = await post(API_PATH, postData);
-  // const { feedbackData: { data: currentData } } = getState();
-  const { assignee, assigner, target } = postData;
-  const newFeedback = {
-    feedbackStatus: 'NEW',
-    assignee,
-    assigner,
-    target,
-    rating: 0,
-    comment: '',
-  };
+  const res = await post(apiPaths.ADD_FEEDBACK, postData);
+  dispatch({ data: res, type: types.ADD_FEEDBACK_SUCCESS });
+};
 
-  dispatch({ data: newFeedback, type: types.ADD_FEEDBACK_SUCCESS });
+export const updateFeedback = postData => async (dispatch: Function) => {
+  dispatch({ type: types.UPDATE_FEEDBACK });
+  const res = await post(apiPaths.UPDATE_FEEDBACK, postData);
+  dispatch({ data: res, type: types.UPDATE_FEEDBACK_SUCCESS });
 };
 
 export default {};

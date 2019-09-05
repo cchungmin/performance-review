@@ -24,7 +24,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         allEmployeeData: action.data,
       };
     case types.DELETE_EMPLOYEE_DATA_SUCCESS:
-      console.log('action.data', action.data)
       return {
         ...state,
         allEmployeeData: action.data,
@@ -37,7 +36,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     case types.ADD_FEEDBACK_SUCCESS:
       return {
         ...state,
-        feedbackData: [...state.feedbackData, action.data],
+        feedbackData: action.data,
+      };
+    case types.UPDATE_FEEDBACK_SUCCESS:
+      return {
+        ...state,
+        feedbackData: action.data,
       };
     case types.FETCH_FEEDBACK_DATA_SUCCESS:
       return {

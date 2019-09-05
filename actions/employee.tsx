@@ -4,14 +4,13 @@ import apiPaths from './api';
 
 export const fetchEmployeeData = postData => async (dispatch) => {
   dispatch({ type: types.FETCH_EMPLOYEE_DATA });
-  // const data = await post(API_PATH, postData);
   const res = {
     data: {
       forename: 'Michael',
       surname: 'Jordan',
       startDate: '2016/04/01',
       admin: true,
-      id: '0300',
+      _id: '0300',
       position: 'Engineering Manager',
       department: 'Tech',
       updating: false,

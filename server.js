@@ -23,7 +23,7 @@ app.prepare().then(() => {
         if (err) throw err;
         return res.json(result);
       });
-    })
+    });
 
     server.post('/v1/api/add-employee', async (req, res) => {
       const item = req.body;
@@ -32,7 +32,7 @@ app.prepare().then(() => {
         if (err) throw err;
         return res.json(result);
       });
-    })
+    });
 
     server.post('/v1/api/update-employee', async (req, res) => {
       const item = req.body;
@@ -54,7 +54,7 @@ app.prepare().then(() => {
         if (err) throw err;
         return res.json(result);
       });
-    })
+    });
 
     server.post('/v1/api/delete-employee', async (req, res) => {
       const item = req.body;
@@ -63,15 +63,59 @@ app.prepare().then(() => {
         if (err) throw err;
         return res.json(result);
       });
-    })
+    });
+
+    server.get('/v1/api/fetch-feedbacks', async (req, res) => {
+      await db.collection('feedbacks').find().toArray(function(err, result) {
+        if (err) throw err;
+        return res.json(result);
+      });
+    });
+
+    server.post('/v1/api/add-feedback', async (req, res) => {
+      const item = req.body;
+      await db.collection('feedbacks').insertOne({
+        ...item,
+        status: 'NEW',
+        rating: '',
+        comment: '',
+      });
+      await db.collection('feedbacks').find().toArray(function(err, result) {
+        if (err) throw err;
+        return res.json(result);
+      });
+    });
+
+    server.post('/v1/api/update-feedback', async (req, res) => {
+      const item = req.body;
+      await db.collection('feedbacks').updateOne(
+        { _id: ObjectID(item._id) },
+        {
+          $set: {
+            status: 'UPDATED',
+            assignee: item.assignee,
+            assigner: item.assigner,
+            target: item.target,
+            rating: item.rating,
+            comment: item.comment,
+          }
+        },
+        { upsert: true },
+      );
+      await db.collection('feedbacks').find().toArray(function(err, result) {
+        if (err) throw err;
+        return res.json(result);
+      });
+    });
+
 
     server.get('*', (req, res) => {
       return handle(req, res);
-    })
+    });
 
     server.listen(port, err => {
       if (err) throw err;
       console.log(`> Ready on http://localhost:${port}`);
-    })
+    });
   })
 })
