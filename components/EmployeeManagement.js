@@ -38,9 +38,10 @@ const EmployeeManagement = ({
                   <td>{el.startDate}</td>
                   <td>
                     <select onChange={onSelectReviewerChange}>
+                      <option key="inner-default">--- Select a peer ---</option>
                       {
                         allEmployeeData.filter(filterEl =>
-                          filterEl.id !== el.id
+                          filterEl._id !== el._id
                         ).map(innerEl => (
                           <option value={innerEl._id} key={`inner-${innerEl._id}`}>{innerEl.forename} {innerEl.surname}</option>
                         ))
