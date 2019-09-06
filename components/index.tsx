@@ -10,6 +10,8 @@ interface Employee {
   _id: string;
   startDate: string;
   admin: boolean,
+  position: string,
+  department: string;
 }
 
 interface Props {
@@ -25,6 +27,8 @@ const Index = ({ data }: Props) => (
           <span>Admin</span>
         )
       }
+      <div>{data.position}</div>
+      <div>{data.department}</div>
       <div>Start Date: {data.startDate}</div>
     </div>
   </div>

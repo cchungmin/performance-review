@@ -21,6 +21,8 @@ interface Employee {
   _id: string;
   startDate: string;
   admin: boolean,
+  position: string,
+  department: string,
 }
 
 interface Feedback {
