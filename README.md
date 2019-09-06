@@ -29,11 +29,25 @@ Build the files by:
 yarn build
 ```
 
-Please Install [MongoDB](https://www.mongodb.com/) and initialize 2 connections (employees & feedbacks)
+Please Install [MongoDB](https://www.mongodb.com/) and initialize 2 connections (`employees` & `feedbacks`)
+
 By default, the app will select the first employee as the default and admin user.
+
+It's possible that switching to /admin route to fill in the first employee, or manually insert one document to `employees` with
+```
+{
+  surname: string,
+  forename: string,
+  admin: string,
+  startDate: string,
+  position: string,
+  department: string,
+}
+```
+
 This app doesn't handle any login / logout features for now.
 
 ## Issues
 API in backend
-More interactive UI
+More interactive UI & data types
 Error handling
