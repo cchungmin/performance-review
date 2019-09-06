@@ -9,7 +9,8 @@ export const fetchEmployeeData = postData => async (dispatch) => {
     data,
     status: '200',
   };
-  const picked = res.data[res.data.length - 1];
+  // Picks the first user as the admin and default user
+  const picked = res.data[0];
   if (res.status === '200') {
     dispatch({ data: { ...picked, admin: true }, type: types.FETCH_EMPLOYEE_DATA_SUCCESS });
   } else {
