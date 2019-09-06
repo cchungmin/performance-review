@@ -49,5 +49,7 @@ This app doesn't handle any login / logout features for now.
 
 ## Issues
 API in backend
+
 More interactive UI & data types
+
 Error handling
