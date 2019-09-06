@@ -13,23 +13,23 @@ const EmployeeForm = ({
       <div className={css['employee-form']}>
         <label htmlFor="forename" className={css['employee-form-label']}>
           Forename
-          <input name="forename" defaultValue={selectedTarget && selectedTarget.forename} />
+          <input name="forename" required defaultValue={selectedTarget && selectedTarget.forename} />
         </label>
         <label htmlFor="surname" className={css['employee-form-label']}>
           Surname
-          <input name="surname" defaultValue={selectedTarget && selectedTarget.surname} />
+          <input name="surname" required defaultValue={selectedTarget && selectedTarget.surname} />
         </label>
         <label htmlFor="position" className={css['employee-form-label']}>
           Position
-          <input name="position" defaultValue={selectedTarget && selectedTarget.position} />
+          <input name="position" required defaultValue={selectedTarget && selectedTarget.position} />
         </label>
         <label htmlFor="department" className={css['employee-form-label']}>
           Department
-          <input name="department" defaultValue={selectedTarget && selectedTarget.department} />
+          <input name="department" required defaultValue={selectedTarget && selectedTarget.department} />
         </label>
         <label htmlFor="startDate" className={css['employee-form-label']}>
           Start Date
-          <input name="startDate" defaultValue={selectedTarget && selectedTarget.startDate} placeholder="YYYY/MM/DD" />
+          <input name="startDate" required defaultValue={selectedTarget && selectedTarget.startDate} placeholder="YYYY/MM/DD" />
         </label>
         <button type="submit">Submit</button>
       </div>

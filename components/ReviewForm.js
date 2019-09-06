@@ -13,11 +13,11 @@ const EmployeeForm = ({
       <div className={css['employee-form']}>
         <label htmlFor="forename" className={css['employee-form-label']}>
           Rating
-          <input name="rating" defaultValue={selectedFeedback && selectedFeedback.rating} />
+          <input name="rating" required defaultValue={selectedFeedback && selectedFeedback.rating} />
         </label>
         <label htmlFor="surname" className={css['employee-form-label']}>
           Comment
-          <input name="comment" defaultValue={selectedFeedback && selectedFeedback.comment} />
+          <input name="comment" required defaultValue={selectedFeedback && selectedFeedback.comment} />
         </label>
         <button type="submit">Submit</button>
       </div>
