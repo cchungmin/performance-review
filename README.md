@@ -45,7 +45,7 @@ It's possible that switching to /admin route to fill in the first employee, or m
 }
 ```
 
-This app doesn't handle any login / logout features for now.
+This provides the default `/` index page to display employee view, allowing viewing incoming review requests and user information. the admin page `/admin` provides employee management and feedback management features. This app doesn't handle any login / logout features for now.
 
 ## Issues
 API in backend
