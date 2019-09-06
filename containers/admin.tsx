@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Link from 'next/link';
 
 import css from '../styles.scss';
 import {
@@ -173,13 +174,13 @@ class Index extends React.Component<Props> {
   onReviewFormChange = (ev: MouseEvent, name: string, data: string) => {
     if (!(ev.target instanceof HTMLInputElement)) return;
     const { selectedFeedback } = this.state;
-    this.setState({ newFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback._id }});
+    this.setState({ selectedFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback._id }});
   }
 
   onReviewFormSubmit = (ev: MouseEvent) => {
     const { updateFeedback } = this.props;
-    const { newFeedback, updatingFeedback } = this.state;
-    if (updatingFeedback) updateFeedback(newFeedback);
+    const { selectedFeedback } = this.state;
+    updateFeedback(selectedFeedback);
     this.toggleFeedbackPanel();
     this.resetFeedback();
     this.setState({
@@ -198,14 +199,18 @@ class Index extends React.Component<Props> {
     if (!(ev.target instanceof HTMLInputElement)) return;
     const { newEmployee, updating, selectedTarget } = this.state;
     const target = updating ? selectedTarget : newEmployee;
-    this.setState({ newEmployee: { ...target, [name]: data, ...updating ? { id: selectedTarget._id } : null }});
+    if (updating) {
+      this.setState({ selectedTarget: { ...target, [name]: data, _id: selectedTarget._id }});
+    } else {
+      this.setState({ newEmployee: { ...target, [name]: data }});
+    }
   }
 
   onFormSubmit = (ev: MouseEvent) => {
     const { addEmployee, updateEmployee } = this.props;
-    const { newEmployee, updating, adding } = this.state;
+    const { newEmployee, updating, adding, selectedTarget } = this.state;
     if (adding) addEmployee(newEmployee);
-    if (updating) updateEmployee(newEmployee);
+    if (updating) updateEmployee(selectedTarget);
     this.toggleEmployeePanel();
     this.reset();
     this.setState({
@@ -251,10 +256,17 @@ class Index extends React.Component<Props> {
         {
           (fetching || !allEmployeeData) ? (
             <h1 className={css.loading}>
-              Loading employee data...
+              Loading admin data...
             </h1>
           ) : (
             <React.Fragment>
+              <header>
+                <Link href="/">
+                  <a>
+                    Employee view
+                  </a>
+                </Link>
+              </header>
               <h1>Profile</h1>
               <EmployeeInfo
                 data={employeeData}

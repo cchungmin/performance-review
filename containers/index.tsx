@@ -87,7 +87,7 @@ class Index extends React.Component<Props> {
   onReviewFormChange = (ev: MouseEvent, name: string, data: string) => {
     if (!(ev.target instanceof HTMLInputElement)) return;
     const { selectedFeedback } = this.state;
-    this.setState({ newFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback._id }});
+    this.setState({ selectedFeedback: { ...selectedFeedback, [name]: data, id: selectedFeedback._id }});
   }
 
   resetFeedback = () => {
@@ -100,8 +100,8 @@ class Index extends React.Component<Props> {
 
   onReviewFormSubmit = (ev: MouseEvent) => {
     const { updateFeedback } = this.props;
-    const { newFeedback, updatingFeedback } = this.state;
-    if (updatingFeedback) updateFeedback(newFeedback);
+    const { selectedFeedback, updatingFeedback } = this.state;
+    if (updatingFeedback) updateFeedback(selectedFeedback);
     this.toggleFeedbackPanel();
     this.resetFeedback();
   }
@@ -142,18 +142,20 @@ class Index extends React.Component<Props> {
             </h1>
           ) : (
             <React.Fragment>
+              {
+                employeeData.admin && (
+                  <header>
+                    <Link href="/admin">
+                      <a>
+                        Admin view
+                      </a>
+                    </Link>
+                  </header>
+                )
+              }
               <EmployeeInfo
                 data={employeeData}
               />
-              {
-                employeeData.admin && (
-                  <Link href="/admin">
-                    <a>
-                      Switch to Admin
-                    </a>
-                  </Link>
-                )
-              }
               <ReviewBoard
                 feedbackData={feedbackData.filter(el =>
                   el.target !== employeeData._id &&

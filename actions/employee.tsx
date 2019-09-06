@@ -9,7 +9,7 @@ export const fetchEmployeeData = postData => async (dispatch) => {
     data,
     status: '200',
   };
-  const picked = res.data[0];
+  const picked = res.data[res.data.length - 1];
   if (res.status === '200') {
     dispatch({ data: { ...picked, admin: true }, type: types.FETCH_EMPLOYEE_DATA_SUCCESS });
   } else {
