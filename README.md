@@ -47,6 +47,14 @@ It's possible that switching to /admin route to fill in the first employee, or m
 
 This provides the default `/` index page to display employee view, allowing viewing incoming review requests and user information. the admin page `/admin` provides employee management and feedback management features. This app doesn't handle any login / logout features for now.
 
+### Index page
+
+![alt text](https://github.com/cchungmin/performance-review/raw/master/static/index.png "Index page")
+
+### Admin page
+
+![alt text](https://github.com/cchungmin/performance-review/raw/master/static/admin.png "Admin page")
+
 ## Issues
 API in backend
 
